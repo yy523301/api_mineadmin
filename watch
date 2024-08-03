@@ -182,10 +182,15 @@ function serve(Process $serve)
 
 function fileHash(string $pathname): string
 {
+    if (!is_file($pathname)) {
+        return 'not_a_file';
+    }
+
     $contents = file_get_contents($pathname);
-    if (false === $contents) {
+    if ($contents === false) {
         return 'deleted';
     }
+
     return md5($contents);
 }
 
